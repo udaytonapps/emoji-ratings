@@ -118,6 +118,11 @@ $OUTPUT->header();
         label.radio-inline {
             width: 15%;
             text-align: center;
+            padding: 4px;
+            border: 2px solid transparent;
+        }
+        input[name="response"] {
+            display: none;
         }
         label > span.emoji-label {
             display: block;
@@ -139,6 +144,10 @@ $OUTPUT->header();
         }
         div.container-fluid {
             margin-bottom: 1em;
+        }
+        label.radio-inline.selectedEmojiChoice {
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
         }
         .slideInRight {
             -webkit-animation-duration:0.5s;
@@ -509,6 +518,18 @@ $OUTPUT->footerStart();
             $("#scaleChoice").text("confidence level");
             $("#ratingGroup").hide();
             $("#promptGroup").addClass("slideInRight").show();
+        });
+        var responseRadios = $('input[name="response"]');
+        responseRadios.each(function(){
+            if ($(this).is(":checked")) {
+                $(this).parent().addClass("selectedEmojiChoice");
+            }
+        });
+        responseRadios.on("change", function () {
+            $('input[name="response"]').parent().removeClass("selectedEmojiChoice");
+            if ($(this).is(":checked")) {
+                $(this).parent().addClass("selectedEmojiChoice");
+            }
         });
     });
 </script>
