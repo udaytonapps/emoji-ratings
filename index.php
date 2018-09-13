@@ -102,6 +102,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $USER->instructor) {
         unset($_SESSION["emoji_id"]);
     }
 }
+$editMode = false;
+if (isset($_GET["mode"]) && $_GET["mode"] == "edit") {
+    $editMode = true;
+}
 
 $OUTPUT->header();
 ?>
@@ -136,6 +140,60 @@ $OUTPUT->header();
         div.container-fluid {
             margin-bottom: 1em;
         }
+        .slideInRight {
+            -webkit-animation-duration:0.5s;
+            animation-duration:0.5s;
+            -webkit-animation-name:slideInRight;
+            animation-name:slideInRight;
+            -webkit-animation-fill-mode:both;
+            animation-fill-mode:both;
+        }
+        @-webkit-keyframes slideInRight {
+            from {
+                -webkit-transform:translate3d(100%,0,0);
+                transform:translate3d(100%,0,0);
+                visibility:visible
+            }
+            to {
+                -webkit-transform:translate3d(0,0,0);
+                transform:translate3d(0,0,0)
+            }
+        }
+        @keyframes slideInRight {
+            from {
+                -webkit-transform:translate3d(100%,0,0);
+                transform:translate3d(100%,0,0);
+                visibility:visible
+            }
+            to {
+                -webkit-transform:translate3d(0,0,0);
+                transform:translate3d(0,0,0)
+            }
+        }
+        .fadeInFaster {
+            -webkit-animation-duration:.5s;
+            animation-duration:.5s;
+            -webkit-animation-name:fadeIn;
+            animation-name:fadeIn;
+            -webkit-animation-fill-mode:both;
+            animation-fill-mode:both;
+        }
+        @-webkit-keyframes fadeIn {
+            from {
+                opacity:0
+            }
+            to {
+                opacity:1
+            }
+        }
+        @keyframes fadeIn {
+            from {
+                opacity:0
+            }
+            to {
+                opacity:1
+            }
+        }
     </style>
 <?php
 $OUTPUT->bodyStart();
@@ -144,26 +202,112 @@ $OUTPUT->bodyStart();
         <?php
         if ($USER->instructor && !isset($_SESSION["emoji_id"])) {
             ?>
-            <form class="form" method="post">
-                <div class="form-group">
-                    <label for="rating-type">Rating Type</label>
-                    <select class="form-control" id="rating-type" name="rating-type">
-                        <option value="0" <?= $emojiRating && $emojiRating["rating_type"] == "0" ? 'selected="selected"' : '' ?>>
-                            Feeling
-                        </option>
-                        <option value="1" <?= $emojiRating && $emojiRating["rating_type"] == "1" ? 'selected="selected"' : '' ?>>
-                            Confidence Level
-                        </option>
-                    </select>
+            <?php
+            if ($editMode) {
+                echo '<a href="index.php?mode=reset" class="btn btn-link pull-right"><span class="fa fa-undo" aria-hidden="true"></span> Reset Results</a>';
+            }
+            ?>
+            <div class="fadeInFaster" id="createInstructions" <?= $editMode ? 'style="display:none;"' : '' ?>>
+                <h2>Welcome to Emoji Ratings!</h2>
+                <p>Use this tool to gain a pulse on students' feelings or confidence after a particular activity or module.</p>
+                <p>
+                    <button type="button" class="btn btn-success" id="getStartedButton">Get Started <span class="fa fa-arrow-right"></span></button>
+                </p>
+            </div>
+            <form class="form" method="post" id="createForm">
+                <div class="form-group" id="ratingGroup" <?= $editMode ? '' : 'style="display:none;"' ?>>
+                    <h3>What would you like to rate?</h3>
+                    <p>There are two different rating scales available. One to measure feeling and the other to measure confidence.</p>
+                    <div class="row">
+                        <div class="col-sm-8 text-center">
+                            <h4>Feeling Scale</h4>
+                            <div class="result">
+                                <img src="emoji/Excited.png" alt="Excited" class="emoji">
+                                <span class="emoji-label">Excited</span>
+                            </div>
+                            <div class="result">
+                                <img src="emoji/Content.png" alt="Content" class="emoji">
+                                <span class="emoji-label">Content</span>
+                            </div>
+                            <div class="result">
+                                <img src="emoji/Neutral.png" alt="Neutral" class="emoji">
+                                <span class="emoji-label">Neutral</span>
+                            </div>
+                            <div class="result">
+                                <img src="emoji/Nervous.png" alt="Nervous" class="emoji">
+                                <span class="emoji-label">Nervous</span>
+                            </div>
+                            <div class="result">
+                                <img src="emoji/Worried2.png" alt="Worried" class="emoji">
+                                <span class="emoji-label">Worried</span>
+                            </div>
+                            <div class="result">
+                                <img src="emoji/Upset.png" alt="Upset" class="emoji">
+                                <span class="emoji-label">Upset</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <p>Example: <em>How did you feel about our lab experience today?</em></p>
+                            <button type="button" class="btn btn-primary" id="selectFeeling">Use Feeling</button>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-8 text-center">
+                            <h4>Confidence Scale</h4>
+                            <div class="result">
+                                <img src="emoji/SuperConfident.png" alt="Super Confident" class="emoji">
+                                <span class="emoji-label">Super Confident</span>
+                            </div>
+                            <div class="result">
+                                <img src="emoji/Optimistic.png" alt="Optimistic" class="emoji">
+                                <span class="emoji-label">Optimistic</span>
+                            </div>
+                            <div class="result">
+                                <img src="emoji/Neutral.png" alt="Neutral" class="emoji">
+                                <span class="emoji-label">Neutral</span>
+                            </div>
+                            <div class="result">
+                                <img src="emoji/Uneasy.png" alt="Uneasy" class="emoji">
+                                <span class="emoji-label">Uneasy</span>
+                            </div>
+                            <div class="result">
+                                <img src="emoji/Worried.png" alt="Worried" class="emoji">
+                                <span class="emoji-label">Worried</span>
+                            </div>
+                            <div class="result">
+                                <img src="emoji/Panicked.png" alt="Panicked" class="emoji">
+                                <span class="emoji-label">Panicked</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <p>Example: <em>How confident do you feel about the upcoming test?</em></p>
+                            <button type="button" class="btn btn-primary" id="selectConfidence">Use Confidence Level</button>
+                        </div>
+                    </div>
+                    <div style="display:none;">
+                        <label for="rating-type">Rating Type</label>
+                        <select class="form-control" id="rating-type" name="rating-type">
+                            <option value="0" <?= $emojiRating && $emojiRating["rating_type"] == "0" ? 'selected="selected"' : '' ?>>
+                                Feeling
+                            </option>
+                            <option value="1" <?= $emojiRating && $emojiRating["rating_type"] == "1" ? 'selected="selected"' : '' ?>>
+                                Confidence Level
+                            </option>
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="prompt">Prompt</label>
-                    <textarea class="form-control" rows="5" id="prompt"
-                              name="prompt"><?= $emojiRating ? $emojiRating["prompt"] : '' ?></textarea>
+                <div id="promptGroup" style="display:none;">
+                    <div class="form-group">
+                        <h3>What should the prompt be for the <span id="scaleChoice"></span> scale?</h3>
+                        <p>Students are presented with the provided prompt and selected emoji scale only. Answers are reported anonymously, you will only see the aggregate results.</p>
+                        <label for="prompt">Prompt</label>
+                        <textarea class="form-control" rows="5" id="prompt"
+                                  name="prompt"><?= $emojiRating ? $emojiRating["prompt"] : '' ?></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="index.php" class="btn btn-link">Cancel</a>
                 </div>
-                <button type="submit" class="btn btn-primary">Save</button>
-                <a href="index.php" class="btn btn-link">Cancel</a>
-                <a href="index.php?mode=reset" class="btn btn-link pull-right"><span class="fa fa-undo" aria-hidden="true"></span> Reset Results</a>
             </form>
             <?php
         } else if (isset($_SESSION["emoji_id"])) {
@@ -344,5 +488,29 @@ $OUTPUT->bodyStart();
 $OUTPUT->flashMessages();
 
 $OUTPUT->footerStart();
-
+?>
+<script type="text/javascript">
+    $(function() {
+        var selectedRating = $("#rating-type").val();
+        var feelingBtn = $("#selectFeeling");
+        var confidenceBtn = $("#selectConfidence");
+        $("#getStartedButton").on("click", function () {
+            $("#createInstructions").hide();
+            $("#ratingGroup").addClass("slideInRight").show();
+        });
+        feelingBtn.on("click", function () {
+            $("#rating-type").val("0");
+            $("#scaleChoice").text("feeling");
+            $("#ratingGroup").hide();
+            $("#promptGroup").addClass("slideInRight").show();
+        });
+        confidenceBtn.on("click", function () {
+            $("#rating-type").val("1");
+            $("#scaleChoice").text("confidence level");
+            $("#ratingGroup").hide();
+            $("#promptGroup").addClass("slideInRight").show();
+        });
+    });
+</script>
+<?php
 $OUTPUT->footerEnd();
