@@ -218,6 +218,8 @@ $OUTPUT->bodyStart();
                         <textarea class="form-control" rows="2" id="prompt"
                                   name="prompt"><?= $emojiRating ? $emojiRating["prompt"] : '' ?></textarea>
                     </div>
+                </div>
+                <div class="text-right">
                     <button type="submit" class="btn btn-primary">Save</button>
                     <a href="index.php" class="btn btn-link">Cancel</a>
                 </div>
