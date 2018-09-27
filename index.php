@@ -132,12 +132,13 @@ $OUTPUT->header();
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            color: #31708f;
-            background-color: #d9edf7;
-            border: 2px solid #bce8f1;
+            color: #444;
+            background-color: #fff;
+            border: 2px solid #ccc;
             -webkit-border-radius: 4px;
             -moz-border-radius: 4px;
             border-radius: 4px;
+            font-size: 16px;
         }
         div.result {
             float: left;
@@ -195,6 +196,7 @@ $OUTPUT->header();
         }
         .prompt-wrapper > h4 {
             display: inline-block;
+            font-size: 20px;
         }
         .prompt-wrapper:after {
             content: '';
@@ -559,7 +561,6 @@ $OUTPUT->bodyStart();
         } else {
             echo '<p class="alert alert-danger">This emoji rating is not configured yet.</p>';
         }
-        $OUTPUT->flashMessages();
         ?>
     </div>
 <?php
@@ -600,9 +601,6 @@ $OUTPUT->footerStart();
             }
             $("#submitEmoji").click();
         });
-        setTimeout( function () {
-            $("div.alert").fadeOut("slow")
-        }, 1500);
     });
 </script>
 <?php
