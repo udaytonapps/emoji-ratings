@@ -5,6 +5,10 @@ img.emoji {
     padding-left: 16px;
     margin-bottom: 4px;
 }
+img.emoji-main {
+    width: 120px;
+    padding-left: 16px;
+}
 label.radio-inline {
     width: 14%;
     text-align: center;
@@ -28,6 +32,12 @@ label > span.emoji-label {
     border-radius: 4px;
     font-size: 16px;
 }
+label.radio-inline:hover > span.emoji-label {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
 div.results-wrapper {
     text-align: center;
 }
@@ -54,7 +64,7 @@ div.result > span.emoji-label {
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 14px;
 }
 span.response-count {
     display: block;
@@ -130,6 +140,13 @@ label.radio-inline.selectedEmojiChoice > span.emoji-label {
 }
 .response-form-wrapper {
     text-align: center;
+    background-image: linear-gradient(to right, rgba(30, 150, 0, 0.5), rgba(255, 242, 0, 0.75), rgba(255, 0, 0, 0.5));
+    background-image: -webkit-linear-gradient(to right, rgba(30, 150, 0, 0.5), rgba(255, 242, 0, 0.75), rgba(255, 0, 0, 0.5));
+    background-image: -moz-linear-gradient(to right, rgba(30, 150, 0, 0.5), rgba(255, 242, 0, 0.75), rgba(255, 0, 0, 0.5));
+    background-repeat: no-repeat;
+    background-size: 100% 40px;
+    box-shadow: 0 0 100px 75px white inset;
+    background-position-y: 50%;
 }
 .scale-wrapper {
     border: 1px solid #ccc;

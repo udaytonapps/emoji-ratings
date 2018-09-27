@@ -118,6 +118,7 @@ $OUTPUT->bodyStart();
         if ($USER->instructor && !isset($_SESSION["emoji_id"])) {
             ?>
             <div class="fadeInFaster" id="createInstructions" <?= $editMode ? 'style="display:none;"' : '' ?>>
+                <img src="emoji/Content.png" alt="Content" class="emoji-main pull-right">
                 <h2>Welcome to Emoji Ratings!</h2>
                 <p>Use this tool to gain a pulse on students' feelings or confidence after a particular activity or module.</p>
                 <p>
@@ -176,8 +177,8 @@ $OUTPUT->bodyStart();
                             <div class="scale-wrapper alert alert-warning">
                                 <p class="text-left">Example<br /><strong>How confident do you feel about the upcoming test?</strong></p>
                                 <div class="result">
-                                    <img src="emoji/SuperConfident.png" alt="Super Confident" class="emoji">
-                                    <span class="emoji-label">Super Confident</span>
+                                    <img src="emoji/SuperConfident.png" alt="Confident" class="emoji">
+                                    <span class="emoji-label">Confident</span>
                                 </div>
                                 <div class="result">
                                     <img src="emoji/Optimistic.png" alt="Optimistic" class="emoji">
@@ -213,19 +214,23 @@ $OUTPUT->bodyStart();
                             </option>
                         </select>
                     </div>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a href="index.php" class="btn btn-link">Cancel</a>
+                    </div>
                 </div>
                 <div id="promptGroup" style="display:none;">
                     <div class="form-group">
-                        <h3>What should the prompt be for the <span id="scaleChoice"></span> scale?</h3>
+                        <h3>What should the prompt be for the <span id="scaleChoice" class="text-primary" style="vertical-align: top"></span> scale?</h3>
                         <p>Students are presented with the provided prompt and selected emoji scale only. Answers are reported anonymously, you will only see the aggregate results.</p>
                         <label for="prompt">Prompt</label>
                         <textarea class="form-control" rows="2" id="prompt"
                                   name="prompt"><?= $emojiRating ? $emojiRating["prompt"] : '' ?></textarea>
                     </div>
-                </div>
-                <div class="text-right">
-                    <button type="submit" class="btn btn-primary">Save</button>
-                    <a href="index.php" class="btn btn-link">Cancel</a>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a href="index.php" class="btn btn-link">Cancel</a>
+                    </div>
                 </div>
             </form>
             <?php
@@ -277,8 +282,8 @@ $OUTPUT->bodyStart();
                     ?>
                     <div class="result">
                         <span class="response-count"><?= getResponseCount($PDOX, $p, $_SESSION["emoji_id"], "1"); ?></span>
-                        <img src="emoji/SuperConfident.png" alt="Super Confident" class="emoji">
-                        <span class="emoji-label">Super Confident</span>
+                        <img src="emoji/SuperConfident.png" alt="Confident" class="emoji">
+                        <span class="emoji-label">Confident</span>
                     </div>
                     <div class="result">
                         <span class="response-count"><?= getResponseCount($PDOX, $p, $_SESSION["emoji_id"], "2"); ?></span>
@@ -366,8 +371,8 @@ $OUTPUT->bodyStart();
                                 <label class="radio-inline">
                                     <input type="radio" name="response"
                                            value="1" <?= $response && $response["response"] == "1" ? 'checked' : '' ?>>
-                                    <img src="emoji/SuperConfident.png" alt="Super Confident" class="emoji">
-                                    <span class="emoji-label">Super Confident</span>
+                                    <img src="emoji/SuperConfident.png" alt="Confident" class="emoji">
+                                    <span class="emoji-label">Confident</span>
                                 </label>
                                 <label class="radio-inline">
                                     <input type="radio" name="response"
