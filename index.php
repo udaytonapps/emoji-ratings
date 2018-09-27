@@ -109,170 +109,7 @@ if (isset($_GET["mode"]) && $_GET["mode"] == "edit") {
 
 $OUTPUT->header();
 ?>
-    <style type="text/css">
-        img.emoji {
-            width: 100%;
-            margin: 0 auto;
-            display: inline-block;
-            padding-left: 16px;
-            margin-bottom: 4px;
-        }
-        label.radio-inline {
-            width: 14%;
-            text-align: center;
-            padding: 4px;
-            position: relative;
-        }
-        input[name="response"] {
-            display: none;
-        }
-        label > span.emoji-label {
-            display: block;
-            width: 100%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            color: #444;
-            background-color: #fff;
-            border: 2px solid #ccc;
-            -webkit-border-radius: 4px;
-            -moz-border-radius: 4px;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-        div.result {
-            float: left;
-            width: 15%;
-            text-align: center;
-            margin-right: 1%;
-        }
-        div.result > img.emoji {
-            display: block;
-        }
-        span.response-count {
-            display: block;
-            font-weight: bold;
-            color: darkred;
-            padding: 8px;
-            font-size: 18px;
-        }
-        div.container-fluid {
-            margin-bottom: 1em;
-        }
-        label.radio-inline.selectedEmojiChoice:after {
-            font-family: FontAwesome;
-            content: "\f058";
-            position: absolute;
-            left: 14px;
-            bottom: 28px;
-            font-size: 27px;
-            color: #3c763d;
-        }
-        label.radio-inline.selectedEmojiChoiceSpin:after {
-            font-family: FontAwesome;
-            content: "\f110";
-            position: absolute;
-            left: 14px;
-            bottom: 28px;
-            font-size: 27px;
-            color: #3c763d;
-            -webkit-animation: fa-spin 2s infinite linear;
-            animation: fa-spin 2s infinite linear;
-        }
-        label.radio-inline.selectedEmojiChoice > span.emoji-label {
-            color: #3c763d;
-            background-color: #dff0d8;
-            border-color: #d6e9c6;
-        }
-        .prompt-wrapper {
-            position: relative;
-            color: #31708f;
-            background-color: #d9edf7;
-            border-color: #bce8f1;
-            border-radius: 4px;
-            padding: 4px 16px;
-            margin-bottom: 1em;
-            display: inline-block;
-        }
-        .prompt-wrapper > h4 {
-            display: inline-block;
-            font-size: 20px;
-        }
-        .prompt-wrapper:after {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            width: 0;
-            height: 0;
-            border: 20px solid transparent;
-            border-right-color: #d9edf7;
-            border-left: 0;
-            border-bottom: 0;
-            margin-top: -10px;
-            margin-left: -20px;
-        }
-        .response-form-wrapper {
-            text-align: center;
-        }
-        .slideInRight {
-            -webkit-animation-duration:0.5s;
-            animation-duration:0.5s;
-            -webkit-animation-name:slideInRight;
-            animation-name:slideInRight;
-            -webkit-animation-fill-mode:both;
-            animation-fill-mode:both;
-        }
-        @-webkit-keyframes slideInRight {
-            from {
-                -webkit-transform:translate3d(100%,0,0);
-                transform:translate3d(100%,0,0);
-                visibility:visible
-            }
-            to {
-                -webkit-transform:translate3d(0,0,0);
-                transform:translate3d(0,0,0)
-            }
-        }
-        @keyframes slideInRight {
-            from {
-                -webkit-transform:translate3d(100%,0,0);
-                transform:translate3d(100%,0,0);
-                visibility:visible
-            }
-            to {
-                -webkit-transform:translate3d(0,0,0);
-                transform:translate3d(0,0,0)
-            }
-        }
-        .fadeInFaster {
-            -webkit-animation-duration:.5s;
-            animation-duration:.5s;
-            -webkit-animation-name:fadeIn;
-            animation-name:fadeIn;
-            -webkit-animation-fill-mode:both;
-            animation-fill-mode:both;
-        }
-        @-webkit-keyframes fadeIn {
-            from {
-                opacity:0
-            }
-            to {
-                opacity:1
-            }
-        }
-        @keyframes fadeIn {
-            from {
-                opacity:0
-            }
-            to {
-                opacity:1
-            }
-        }
-        div.alert {
-            padding: 10px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
 <?php
 $OUTPUT->bodyStart();
 ?>
@@ -297,70 +134,74 @@ $OUTPUT->bodyStart();
                     <h3>What would you like to rate?</h3>
                     <p>There are two different rating scales available. One to measure feeling and the other to measure confidence.</p>
                     <div class="row">
-                        <div class="col-sm-8 text-center">
+                        <div class="col-sm-3">
                             <h4>Feeling Scale</h4>
-                            <div class="result">
-                                <img src="emoji/Excited.png" alt="Excited" class="emoji">
-                                <span class="emoji-label">Excited</span>
-                            </div>
-                            <div class="result">
-                                <img src="emoji/Content.png" alt="Content" class="emoji">
-                                <span class="emoji-label">Content</span>
-                            </div>
-                            <div class="result">
-                                <img src="emoji/Neutral.png" alt="Neutral" class="emoji">
-                                <span class="emoji-label">Neutral</span>
-                            </div>
-                            <div class="result">
-                                <img src="emoji/Nervous.png" alt="Nervous" class="emoji">
-                                <span class="emoji-label">Nervous</span>
-                            </div>
-                            <div class="result">
-                                <img src="emoji/Worried2.png" alt="Worried" class="emoji">
-                                <span class="emoji-label">Worried</span>
-                            </div>
-                            <div class="result">
-                                <img src="emoji/Upset.png" alt="Upset" class="emoji">
-                                <span class="emoji-label">Upset</span>
-                            </div>
+                            <button type="button" class="btn btn-default" id="selectFeeling"><span class="fa fa-square-o" aria-hidden="true"></span> Use This Scale</button>
                         </div>
-                        <div class="col-sm-4">
-                            <p>Example: <em>How did you feel about our lab experience today?</em></p>
-                            <button type="button" class="btn btn-primary" id="selectFeeling">Use Feeling</button>
+                        <div class="col-sm-9 text-center">
+                            <div class="scale-wrapper alert alert-warning">
+                                <p class="text-left">Example<br /><strong>How did you feel about our lab experience today?</strong></p>
+                                <div class="result">
+                                    <img src="emoji/Excited.png" alt="Excited" class="emoji">
+                                    <span class="emoji-label">Excited</span>
+                                </div>
+                                <div class="result">
+                                    <img src="emoji/Content.png" alt="Content" class="emoji">
+                                    <span class="emoji-label">Content</span>
+                                </div>
+                                <div class="result">
+                                    <img src="emoji/Neutral.png" alt="Neutral" class="emoji">
+                                    <span class="emoji-label">Neutral</span>
+                                </div>
+                                <div class="result">
+                                    <img src="emoji/Nervous.png" alt="Nervous" class="emoji">
+                                    <span class="emoji-label">Nervous</span>
+                                </div>
+                                <div class="result">
+                                    <img src="emoji/Worried2.png" alt="Worried" class="emoji">
+                                    <span class="emoji-label">Worried</span>
+                                </div>
+                                <div class="result">
+                                    <img src="emoji/Upset.png" alt="Upset" class="emoji">
+                                    <span class="emoji-label">Upset</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-sm-8 text-center">
+                        <div class="col-sm-3">
                             <h4>Confidence Scale</h4>
-                            <div class="result">
-                                <img src="emoji/SuperConfident.png" alt="Super Confident" class="emoji">
-                                <span class="emoji-label">Super Confident</span>
-                            </div>
-                            <div class="result">
-                                <img src="emoji/Optimistic.png" alt="Optimistic" class="emoji">
-                                <span class="emoji-label">Optimistic</span>
-                            </div>
-                            <div class="result">
-                                <img src="emoji/Neutral.png" alt="Neutral" class="emoji">
-                                <span class="emoji-label">Neutral</span>
-                            </div>
-                            <div class="result">
-                                <img src="emoji/Uneasy.png" alt="Uneasy" class="emoji">
-                                <span class="emoji-label">Uneasy</span>
-                            </div>
-                            <div class="result">
-                                <img src="emoji/Worried.png" alt="Worried" class="emoji">
-                                <span class="emoji-label">Worried</span>
-                            </div>
-                            <div class="result">
-                                <img src="emoji/Panicked.png" alt="Panicked" class="emoji">
-                                <span class="emoji-label">Panicked</span>
-                            </div>
+                            <button type="button" class="btn btn-default" id="selectConfidence"><span class="fa fa-square-o" aria-hidden="true"></span> Use This Scale</button>
                         </div>
-                        <div class="col-sm-4">
-                            <p>Example: <em>How confident do you feel about the upcoming test?</em></p>
-                            <button type="button" class="btn btn-primary" id="selectConfidence">Use Confidence Level</button>
+                        <div class="col-sm-9 text-center">
+                            <div class="scale-wrapper alert alert-warning">
+                                <p class="text-left">Example<br /><strong>How confident do you feel about the upcoming test?</strong></p>
+                                <div class="result">
+                                    <img src="emoji/SuperConfident.png" alt="Super Confident" class="emoji">
+                                    <span class="emoji-label">Super Confident</span>
+                                </div>
+                                <div class="result">
+                                    <img src="emoji/Optimistic.png" alt="Optimistic" class="emoji">
+                                    <span class="emoji-label">Optimistic</span>
+                                </div>
+                                <div class="result">
+                                    <img src="emoji/Neutral.png" alt="Neutral" class="emoji">
+                                    <span class="emoji-label">Neutral</span>
+                                </div>
+                                <div class="result">
+                                    <img src="emoji/Uneasy.png" alt="Uneasy" class="emoji">
+                                    <span class="emoji-label">Uneasy</span>
+                                </div>
+                                <div class="result">
+                                    <img src="emoji/Worried.png" alt="Worried" class="emoji">
+                                    <span class="emoji-label">Worried</span>
+                                </div>
+                                <div class="result">
+                                    <img src="emoji/Panicked.png" alt="Panicked" class="emoji">
+                                    <span class="emoji-label">Panicked</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div style="display:none;">
@@ -603,6 +444,20 @@ $OUTPUT->footerStart();
                 $(this).parent().addClass("selectedEmojiChoiceSpin");
             }
             $("#submitEmoji").click();
+        });
+        feelingBtn.hover(function() {
+            $(this).find('span.fa').removeClass("fa-square-o");
+            $(this).find('span.fa').addClass("fa-check-square-o");
+        }, function() {
+            $(this).find('span.fa').addClass("fa-square-o");
+            $(this).find('span.fa').removeClass("fa-check-square-o");
+        });
+        confidenceBtn.hover(function() {
+            $(this).find('span.fa').removeClass("fa-square-o");
+            $(this).find('span.fa').addClass("fa-check-square-o");
+        }, function() {
+            $(this).find('span.fa').addClass("fa-square-o");
+            $(this).find('span.fa').removeClass("fa-check-square-o");
         });
     });
 </script>
