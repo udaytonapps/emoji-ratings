@@ -117,11 +117,6 @@ $OUTPUT->bodyStart();
         <?php
         if ($USER->instructor && !isset($_SESSION["emoji_id"])) {
             ?>
-            <?php
-            if ($editMode) {
-                echo '<a href="index.php?mode=reset" class="btn btn-link pull-right"><span class="fa fa-undo" aria-hidden="true"></span> Reset Results</a>';
-            }
-            ?>
             <div class="fadeInFaster" id="createInstructions" <?= $editMode ? 'style="display:none;"' : '' ?>>
                 <h2>Welcome to Emoji Ratings!</h2>
                 <p>Use this tool to gain a pulse on students' feelings or confidence after a particular activity or module.</p>
@@ -136,7 +131,7 @@ $OUTPUT->bodyStart();
                     <div class="row">
                         <div class="col-sm-3">
                             <h4>Feeling Scale</h4>
-                            <button type="button" class="btn btn-default" id="selectFeeling"><span class="fa fa-square-o" aria-hidden="true"></span> Use This Scale</button>
+                            <button type="button" class="btn btn-primary" id="selectFeeling"><span class="fa fa-square-o" aria-hidden="true"></span> Use This Scale</button>
                         </div>
                         <div class="col-sm-9 text-center">
                             <div class="scale-wrapper alert alert-warning">
@@ -168,11 +163,10 @@ $OUTPUT->bodyStart();
                             </div>
                         </div>
                     </div>
-                    <hr>
                     <div class="row">
                         <div class="col-sm-3">
                             <h4>Confidence Scale</h4>
-                            <button type="button" class="btn btn-default" id="selectConfidence"><span class="fa fa-square-o" aria-hidden="true"></span> Use This Scale</button>
+                            <button type="button" class="btn btn-primary" id="selectConfidence"><span class="fa fa-square-o" aria-hidden="true"></span> Use This Scale</button>
                         </div>
                         <div class="col-sm-9 text-center">
                             <div class="scale-wrapper alert alert-warning">
@@ -221,7 +215,7 @@ $OUTPUT->bodyStart();
                         <h3>What should the prompt be for the <span id="scaleChoice"></span> scale?</h3>
                         <p>Students are presented with the provided prompt and selected emoji scale only. Answers are reported anonymously, you will only see the aggregate results.</p>
                         <label for="prompt">Prompt</label>
-                        <textarea class="form-control" rows="5" id="prompt"
+                        <textarea class="form-control" rows="2" id="prompt"
                                   name="prompt"><?= $emojiRating ? $emojiRating["prompt"] : '' ?></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>
@@ -232,9 +226,13 @@ $OUTPUT->bodyStart();
         } else if (isset($_SESSION["emoji_id"])) {
             if ($USER->instructor) {
                 ?>
-                <a href="index.php?mode=edit" class="btn btn-default pull-right"><span class="fa fa-pencil" aria-hidden="true"></span> Edit</a>
-                <h3>Results</h3>
-                <h4><?= $emojiRating["prompt"] ?></h4>
+                <a href="index.php?mode=edit" class="btn btn-warning pull-right"><span class="fa fa-pencil" aria-hidden="true"></span> Edit</a>
+                <a href="index.php?mode=reset" class="btn btn-link pull-right"><span class="fa fa-undo" aria-hidden="true"></span> Reset Results</a>
+                <h3>Emoji Ratings - Results</h3>
+                <div class="prompt-wrapper">
+                    <h4><?= $emojiRating["prompt"] ?></h4>
+                </div>
+                <div class="results-wrapper">
                 <?php
                 if ($emojiRating["rating_type"] == 0) {
                     ?>
@@ -303,6 +301,9 @@ $OUTPUT->bodyStart();
                     </div>
                     <?php
                 }
+                ?>
+                </div>
+                <?php
             } else {
                 $responseStmt = $PDOX->prepare("SELECT response FROM {$p}emoji_response where emoji_id = :emojiId AND user_id = :userId");
                 $responseStmt->execute(array(":emojiId" => $_SESSION["emoji_id"], ":userId" => $USER->id));
