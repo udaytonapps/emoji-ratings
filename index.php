@@ -131,7 +131,9 @@ $OUTPUT->bodyStart();
                     <div class="row">
                         <div class="col-sm-3">
                             <h4>Feeling Scale</h4>
-                            <button type="button" class="btn btn-primary" id="selectFeeling"><span class="fa fa-square-o" aria-hidden="true"></span> Use This Scale</button>
+                            <button type="button" class="btn btn-primary" id="selectFeeling">
+                                <span class="fa <?= $emojiRating && $emojiRating["rating_type"] == "0" ? 'fa-check-square-o' : 'fa-square-o' ?>" aria-hidden="true"></span> Use This Scale
+                            </button>
                         </div>
                         <div class="col-sm-9 text-center">
                             <div class="scale-wrapper alert alert-warning">
@@ -166,7 +168,9 @@ $OUTPUT->bodyStart();
                     <div class="row">
                         <div class="col-sm-3">
                             <h4>Confidence Scale</h4>
-                            <button type="button" class="btn btn-primary" id="selectConfidence"><span class="fa fa-square-o" aria-hidden="true"></span> Use This Scale</button>
+                            <button type="button" class="btn btn-primary" id="selectConfidence">
+                                <span class="fa <?= $emojiRating && $emojiRating["rating_type"] == "1" ? 'fa-check-square-o' : 'fa-square-o' ?>" aria-hidden="true"></span> Use This Scale
+                            </button>
                         </div>
                         <div class="col-sm-9 text-center">
                             <div class="scale-wrapper alert alert-warning">
@@ -447,20 +451,6 @@ $OUTPUT->footerStart();
                 $(this).parent().addClass("selectedEmojiChoiceSpin");
             }
             $("#submitEmoji").click();
-        });
-        feelingBtn.hover(function() {
-            $(this).find('span.fa').removeClass("fa-square-o");
-            $(this).find('span.fa').addClass("fa-check-square-o");
-        }, function() {
-            $(this).find('span.fa').addClass("fa-square-o");
-            $(this).find('span.fa').removeClass("fa-check-square-o");
-        });
-        confidenceBtn.hover(function() {
-            $(this).find('span.fa').removeClass("fa-square-o");
-            $(this).find('span.fa').addClass("fa-check-square-o");
-        }, function() {
-            $(this).find('span.fa').addClass("fa-square-o");
-            $(this).find('span.fa').removeClass("fa-check-square-o");
         });
     });
 </script>
