@@ -111,12 +111,12 @@ $OUTPUT->header();
 ?>
     <style type="text/css">
         img.emoji {
-            width: 40px;
+            width: 100%;
             margin: 0 auto;
             display: inline-block;
         }
         label.radio-inline {
-            width: 15%;
+            width: 14%;
             text-align: center;
             padding: 4px;
             border: 2px solid transparent;
@@ -126,11 +126,16 @@ $OUTPUT->header();
         }
         label > span.emoji-label {
             display: block;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         div.result {
-            display: inline-block;
+            float: left;
             width: 15%;
             text-align: center;
+            margin-right: 1%;
         }
         div.result > img.emoji {
             display: block;
