@@ -212,6 +212,9 @@ $OUTPUT->header();
             margin-top: -10px;
             margin-left: -20px;
         }
+        .response-form-wrapper {
+            text-align: center;
+        }
         .slideInRight {
             -webkit-animation-duration:0.5s;
             animation-duration:0.5s;
