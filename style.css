@@ -1,0 +1,218 @@
+img.emoji {
+    width: 100%;
+    margin: 0 auto;
+    display: inline-block;
+    padding-left: 16px;
+    margin-bottom: 4px;
+}
+img.emoji-main {
+    width: 120px;
+    padding-left: 16px;
+}
+label.radio-inline {
+    width: 14%;
+    text-align: center;
+    padding: 4px;
+    position: relative;
+}
+input[name="response"] {
+    display: none;
+}
+label > span.emoji-label {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #444;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    font-size: 16px;
+}
+label.radio-inline:hover > span.emoji-label {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+div.results-wrapper {
+    text-align: center;
+}
+div.result {
+    position: relative;
+    display: inline-block;
+    width: 13%;
+    max-width: 112px;
+    text-align: center;
+    margin-right: 2%;
+}
+div.result > img.emoji {
+    display: block;
+}
+div.result > span.emoji-label {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #337ab7;
+    background-color: #fff;
+    border: 2px solid #337ab7;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+span.response-count {
+    display: block;
+    position: absolute;
+    left: -12px;
+    bottom: 14px;
+    font-weight: bold;
+    color: #fff;
+    padding: 8px;
+    font-size: 18px;
+    background: #337ab7;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+}
+div.container-fluid {
+    margin-bottom: 1em;
+}
+label.radio-inline.selectedEmojiChoice:after {
+    font-family: FontAwesome;
+    content: "\f058";
+    position: absolute;
+    left: 14px;
+    bottom: 28px;
+    font-size: 27px;
+    color: #3c763d;
+}
+label.radio-inline.selectedEmojiChoiceSpin:after {
+    font-family: FontAwesome;
+    content: "\f110";
+    position: absolute;
+    left: 14px;
+    bottom: 28px;
+    font-size: 27px;
+    color: #3c763d;
+    -webkit-animation: fa-spin 2s infinite linear;
+    animation: fa-spin 2s infinite linear;
+}
+label.radio-inline.selectedEmojiChoice > span.emoji-label {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+.prompt-wrapper {
+    position: relative;
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    border-radius: 4px;
+    padding: 4px 16px;
+    margin-bottom: 1em;
+    display: inline-block;
+}
+.prompt-wrapper > h4 {
+    display: inline-block;
+    font-size: 20px;
+}
+.prompt-wrapper:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-right-color: #d9edf7;
+    border-left: 0;
+    border-bottom: 0;
+    margin-top: -10px;
+    margin-left: -20px;
+}
+.response-form-wrapper {
+    text-align: center;
+    background-image: linear-gradient(to right, rgba(30, 150, 0, 0.5), rgba(255, 242, 0, 0.75), rgba(255, 0, 0, 0.5));
+    background-image: -webkit-linear-gradient(to right, rgba(30, 150, 0, 0.5), rgba(255, 242, 0, 0.75), rgba(255, 0, 0, 0.5));
+    background-image: -moz-linear-gradient(to right, rgba(30, 150, 0, 0.5), rgba(255, 242, 0, 0.75), rgba(255, 0, 0, 0.5));
+    background-repeat: no-repeat;
+    background-size: 100% 40px;
+    box-shadow: 0 0 100px 75px white inset;
+    background-position-y: 50%;
+}
+.scale-wrapper {
+    border: 1px solid #ccc;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    padding: 4px;
+    margin-top: 1em;
+}
+.scale-wrapper > p {
+    margin-bottom: 6px;
+}
+.slideInRight {
+    -webkit-animation-duration:0.5s;
+    animation-duration:0.5s;
+    -webkit-animation-name:slideInRight;
+    animation-name:slideInRight;
+    -webkit-animation-fill-mode:both;
+    animation-fill-mode:both;
+}
+@-webkit-keyframes slideInRight {
+    from {
+        -webkit-transform:translate3d(100%,0,0);
+        transform:translate3d(100%,0,0);
+        visibility:visible
+    }
+    to {
+        -webkit-transform:translate3d(0,0,0);
+        transform:translate3d(0,0,0)
+    }
+}
+@keyframes slideInRight {
+    from {
+        -webkit-transform:translate3d(100%,0,0);
+        transform:translate3d(100%,0,0);
+        visibility:visible
+    }
+    to {
+        -webkit-transform:translate3d(0,0,0);
+        transform:translate3d(0,0,0)
+    }
+}
+.fadeInFaster {
+    -webkit-animation-duration:.5s;
+    animation-duration:.5s;
+    -webkit-animation-name:fadeIn;
+    animation-name:fadeIn;
+    -webkit-animation-fill-mode:both;
+    animation-fill-mode:both;
+}
+@-webkit-keyframes fadeIn {
+    from {
+        opacity:0
+    }
+    to {
+        opacity:1
+    }
+}
+@keyframes fadeIn {
+    from {
+        opacity:0
+    }
+    to {
+        opacity:1
+    }
+}
+div.alert {
+    padding: 10px;
+}
