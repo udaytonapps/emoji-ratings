@@ -114,12 +114,14 @@ $OUTPUT->header();
             width: 100%;
             margin: 0 auto;
             display: inline-block;
+            padding-left: 16px;
+            margin-bottom: 4px;
         }
         label.radio-inline {
             width: 14%;
             text-align: center;
             padding: 4px;
-            border: 2px solid transparent;
+            position: relative;
         }
         input[name="response"] {
             display: none;
@@ -130,6 +132,12 @@ $OUTPUT->header();
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            color: #31708f;
+            background-color: #d9edf7;
+            border: 2px solid #bce8f1;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
         }
         div.result {
             float: left;
@@ -150,9 +158,57 @@ $OUTPUT->header();
         div.container-fluid {
             margin-bottom: 1em;
         }
-        label.radio-inline.selectedEmojiChoice {
+        label.radio-inline.selectedEmojiChoice:after {
+            font-family: FontAwesome;
+            content: "\f058";
+            position: absolute;
+            left: 14px;
+            bottom: 28px;
+            font-size: 27px;
+            color: #3c763d;
+        }
+        label.radio-inline.selectedEmojiChoiceSpin:after {
+            font-family: FontAwesome;
+            content: "\f110";
+            position: absolute;
+            left: 14px;
+            bottom: 28px;
+            font-size: 27px;
+            color: #3c763d;
+            -webkit-animation: fa-spin 2s infinite linear;
+            animation: fa-spin 2s infinite linear;
+        }
+        label.radio-inline.selectedEmojiChoice > span.emoji-label {
+            color: #3c763d;
             background-color: #dff0d8;
             border-color: #d6e9c6;
+        }
+        .prompt-wrapper {
+            position: relative;
+            color: #31708f;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+            border-radius: 4px;
+            padding: 4px 16px;
+            margin-bottom: 1em;
+            display: inline-block;
+        }
+        .prompt-wrapper > h4 {
+            display: inline-block;
+        }
+        .prompt-wrapper:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border: 20px solid transparent;
+            border-right-color: #d9edf7;
+            border-left: 0;
+            border-bottom: 0;
+            margin-top: -10px;
+            margin-left: -20px;
         }
         .slideInRight {
             -webkit-animation-duration:0.5s;
@@ -207,6 +263,9 @@ $OUTPUT->header();
             to {
                 opacity:1
             }
+        }
+        div.alert {
+            padding: 10px;
         }
     </style>
 <?php
@@ -403,103 +462,107 @@ $OUTPUT->bodyStart();
                 $responseStmt->execute(array(":emojiId" => $_SESSION["emoji_id"], ":userId" => $USER->id));
                 $response = $responseStmt->fetch(PDO::FETCH_ASSOC);
                 ?>
-                <h4><?= $emojiRating["prompt"] ?></h4>
-                <form class="form" method="post">
-                    <div class="form-group">
-                        <?php
-                        if ($emojiRating["rating_type"] == 0) {
-                            ?>
-                            <label class="radio-inline">
-                                <input type="radio" name="response"
-                                       value="1" <?= $response && $response["response"] == "1" ? 'checked' : '' ?>>
-                                <img src="emoji/Excited.png" alt="Excited" class="emoji">
-                                <span class="emoji-label">Excited</span>
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="response"
-                                       value="2" <?= $response && $response["response"] == "2" ? 'checked' : '' ?>>
-                                <img src="emoji/Content.png" alt="Content" class="emoji">
-                                <span class="emoji-label">Content</span>
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="response"
-                                       value="3" <?= $response && $response["response"] == "3" ? 'checked' : '' ?>>
-                                <img src="emoji/Neutral.png" alt="Neutral" class="emoji">
-                                <span class="emoji-label">Neutral</span>
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="response"
-                                       value="4" <?= $response && $response["response"] == "4" ? 'checked' : '' ?>>
-                                <img src="emoji/Nervous.png" alt="Nervous" class="emoji">
-                                <span class="emoji-label">Nervous</span>
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="response"
-                                       value="5" <?= $response && $response["response"] == "5" ? 'checked' : '' ?>>
-                                <img src="emoji/Worried2.png" alt="Worried" class="emoji">
-                                <span class="emoji-label">Worried</span>
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="response"
-                                       value="6" <?= $response && $response["response"] == "6" ? 'checked' : '' ?>>
-                                <img src="emoji/Upset.png" alt="Upset" class="emoji">
-                                <span class="emoji-label">Upset</span>
-                            </label>
+                <div class="prompt-wrapper">
+                    <h4><?= $emojiRating["prompt"] ?></h4>
+                </div>
+                <div class="response-form-wrapper">
+                    <form class="form" method="post">
+                        <div class="form-group">
                             <?php
-                        } else {
+                            if ($emojiRating["rating_type"] == 0) {
+                                ?>
+                                <label class="radio-inline">
+                                    <input type="radio" name="response"
+                                           value="1" <?= $response && $response["response"] == "1" ? 'checked' : '' ?>>
+                                    <img src="emoji/Excited.png" alt="Excited" class="emoji">
+                                    <span class="emoji-label">Excited</span>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="response"
+                                           value="2" <?= $response && $response["response"] == "2" ? 'checked' : '' ?>>
+                                    <img src="emoji/Content.png" alt="Content" class="emoji">
+                                    <span class="emoji-label">Content</span>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="response"
+                                           value="3" <?= $response && $response["response"] == "3" ? 'checked' : '' ?>>
+                                    <img src="emoji/Neutral.png" alt="Neutral" class="emoji">
+                                    <span class="emoji-label">Neutral</span>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="response"
+                                           value="4" <?= $response && $response["response"] == "4" ? 'checked' : '' ?>>
+                                    <img src="emoji/Nervous.png" alt="Nervous" class="emoji">
+                                    <span class="emoji-label">Nervous</span>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="response"
+                                           value="5" <?= $response && $response["response"] == "5" ? 'checked' : '' ?>>
+                                    <img src="emoji/Worried2.png" alt="Worried" class="emoji">
+                                    <span class="emoji-label">Worried</span>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="response"
+                                           value="6" <?= $response && $response["response"] == "6" ? 'checked' : '' ?>>
+                                    <img src="emoji/Upset.png" alt="Upset" class="emoji">
+                                    <span class="emoji-label">Upset</span>
+                                </label>
+                                <?php
+                            } else {
+                                ?>
+                                <label class="radio-inline">
+                                    <input type="radio" name="response"
+                                           value="1" <?= $response && $response["response"] == "1" ? 'checked' : '' ?>>
+                                    <img src="emoji/SuperConfident.png" alt="Super Confident" class="emoji">
+                                    <span class="emoji-label">Super Confident</span>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="response"
+                                           value="2" <?= $response && $response["response"] == "2" ? 'checked' : '' ?>>
+                                    <img src="emoji/Optimistic.png" alt="Optimistic" class="emoji">
+                                    <span class="emoji-label">Optimistic</span>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="response"
+                                           value="3" <?= $response && $response["response"] == "3" ? 'checked' : '' ?>>
+                                    <img src="emoji/Neutral.png" alt="Neutral" class="emoji">
+                                    <span class="emoji-label">Neutral</span>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="response"
+                                           value="4" <?= $response && $response["response"] == "4" ? 'checked' : '' ?>>
+                                    <img src="emoji/Uneasy.png" alt="Uneasy" class="emoji">
+                                    <span class="emoji-label">Uneasy</span>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="response"
+                                           value="5" <?= $response && $response["response"] == "5" ? 'checked' : '' ?>>
+                                    <img src="emoji/Worried.png" alt="Worried" class="emoji">
+                                    <span class="emoji-label">Worried</span>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="response"
+                                           value="6" <?= $response && $response["response"] == "6" ? 'checked' : '' ?>>
+                                    <img src="emoji/Panicked.png" alt="Panicked" class="emoji">
+                                    <span class="emoji-label">Panicked</span>
+                                </label>
+                                <?php
+                            }
                             ?>
-                            <label class="radio-inline">
-                                <input type="radio" name="response"
-                                       value="1" <?= $response && $response["response"] == "1" ? 'checked' : '' ?>>
-                                <img src="emoji/SuperConfident.png" alt="Super Confident" class="emoji">
-                                <span class="emoji-label">Super Confident</span>
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="response"
-                                       value="2" <?= $response && $response["response"] == "2" ? 'checked' : '' ?>>
-                                <img src="emoji/Optimistic.png" alt="Optimistic" class="emoji">
-                                <span class="emoji-label">Optimistic</span>
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="response"
-                                       value="3" <?= $response && $response["response"] == "3" ? 'checked' : '' ?>>
-                                <img src="emoji/Neutral.png" alt="Neutral" class="emoji">
-                                <span class="emoji-label">Neutral</span>
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="response"
-                                       value="4" <?= $response && $response["response"] == "4" ? 'checked' : '' ?>>
-                                <img src="emoji/Uneasy.png" alt="Uneasy" class="emoji">
-                                <span class="emoji-label">Uneasy</span>
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="response"
-                                       value="5" <?= $response && $response["response"] == "5" ? 'checked' : '' ?>>
-                                <img src="emoji/Worried.png" alt="Worried" class="emoji">
-                                <span class="emoji-label">Worried</span>
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="response"
-                                       value="6" <?= $response && $response["response"] == "6" ? 'checked' : '' ?>>
-                                <img src="emoji/Panicked.png" alt="Panicked" class="emoji">
-                                <span class="emoji-label">Panicked</span>
-                            </label>
-                            <?php
-                        }
-                        ?>
-                    </div>
-                    <button type="submit" class="btn btn-primary <?= $USER->instructor ? 'disabled' : '' ?>">Submit
-                    </button>
-                </form>
+                        </div>
+                        <button type="submit" class="btn btn-primary sr-only <?= $USER->instructor ? 'disabled' : '' ?>" id="submitEmoji">Submit
+                        </button>
+                    </form>
+                </div>
                 <?php
             }
         } else {
             echo '<p class="alert alert-danger">This emoji rating is not configured yet.</p>';
         }
+        $OUTPUT->flashMessages();
         ?>
     </div>
 <?php
-$OUTPUT->flashMessages();
 
 $OUTPUT->footerStart();
 ?>
@@ -533,9 +596,13 @@ $OUTPUT->footerStart();
         responseRadios.on("change", function () {
             $('input[name="response"]').parent().removeClass("selectedEmojiChoice");
             if ($(this).is(":checked")) {
-                $(this).parent().addClass("selectedEmojiChoice");
+                $(this).parent().addClass("selectedEmojiChoiceSpin");
             }
+            $("#submitEmoji").click();
         });
+        setTimeout( function () {
+            $("div.alert").fadeOut("slow")
+        }, 1500);
     });
 </script>
 <?php
