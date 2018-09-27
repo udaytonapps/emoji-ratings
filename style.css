@@ -11,6 +11,7 @@ img.emoji-main {
 }
 label.radio-inline {
     width: 14%;
+    max-width: 120px;
     text-align: center;
     padding: 4px;
     position: relative;
@@ -37,7 +38,6 @@ label.radio-inline:hover > span.emoji-label {
     background-color: #dff0d8;
     border-color: #d6e9c6;
 }
-
 div.results-wrapper {
     text-align: center;
 }
@@ -146,6 +146,8 @@ label.radio-inline.selectedEmojiChoice > span.emoji-label {
     background-repeat: no-repeat;
     background-size: 100% 40px;
     box-shadow: 0 0 100px 75px white inset;
+    -webkit-box-shadow: 0 0 100px 75px white inset;
+    -moz-box-shadow: 0 0 100px 75px white inset;
     background-position-y: 50%;
 }
 .scale-wrapper {
