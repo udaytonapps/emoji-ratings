@@ -86,7 +86,8 @@ div.container-fluid {
     margin-bottom: 1em;
 }
 label.radio-inline.selectedEmojiChoice:after {
-    font-family: FontAwesome;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     content: "\f058";
     position: absolute;
     left: 14px;
@@ -95,7 +96,8 @@ label.radio-inline.selectedEmojiChoice:after {
     color: #3c763d;
 }
 label.radio-inline.selectedEmojiChoiceSpin:after {
-    font-family: FontAwesome;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     content: "\f110";
     position: absolute;
     left: 14px;
